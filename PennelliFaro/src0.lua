@@ -11,8 +11,8 @@
   DeltaX = 15
   DeltaY = 20
   DeltaZ = -35
-  min = 0
-  time = 0
+  Min = 0
+  Time = 0
   MoveJ((P5))
 
   Sync()
@@ -43,7 +43,8 @@
       MoveJ((P18))
       Move(RP(points_pallet1[Counter],{0,0,150}))
     end
-     Move(RP(points_pallet1[Counter],{0,0,50}),"CP=10 AccelS=20")
+    ResetElapsedTime()
+     Move(RP(points_pallet1[Counter],{0,0,10}),"CP=10 AccelS=20")
 
     Move(RP(points_pallet1[Counter],{0,DeltaY,DeltaZ}),"CP=10 SpeedS=100")
     Move(RP(points_pallet1[Counter],{0,DeltaY,DeltaZ}),"CP=1 SpeedS=2")
@@ -51,15 +52,11 @@
     Arc3(RP(points_pallet1[Counter],{-DeltaX,0,DeltaZ}),RP(points_pallet1[Counter],{0,DeltaY,DeltaZ}),"CP=1 SpeedS=2")
 
 
-    time = ElapsedTime() / 1000
-    if time > 60 then
-    min = time / 60
-    print('Minuti ciclo: ')
-    print(min)
-    else
+    print('Numero pezzo piastra:')
+    print(Counter)
+    Time = ElapsedTime() / 1000
     print('Secondi ciclo: ')
-    print(time)
-    end
+    print(Time)
     Counter = Counter+2
     Sync()
     if Counter>#points_pallet1 then
@@ -67,6 +64,7 @@
     end
   end
 
+  Ciclo = 0
   DO(4,0)
   DO(5,1)
   MoveJ((P18))

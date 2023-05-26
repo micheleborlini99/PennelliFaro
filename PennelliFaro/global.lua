@@ -1,6 +1,6 @@
 Counter = 0
-time = 0
-min = 0
+Time = 0
+Min = 0
 DeltaX = 0
 DeltaY = 0
 DeltaZ = 0
