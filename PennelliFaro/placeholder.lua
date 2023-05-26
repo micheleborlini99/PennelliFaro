@@ -14,7 +14,7 @@ function Move()
     print("Movimento lineare")
 end
 
-function DO()()
+function DO()
     print("set output")
 end
 
@@ -34,10 +34,14 @@ function Pause()
     print("programma in pausa")
 end
 
-function ElapsedTime()()
+function ElapsedTime()
     print("Conteggio tempo")
 end
 
-function ResetElapsedTime()()
+function ResetElapsedTime()
     print("Reset tempo")
+end
+
+function DOExecute()
+    print("DO subtrhead")
 end

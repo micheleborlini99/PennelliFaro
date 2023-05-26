@@ -1,4 +1,5 @@
 while 1 do
+--------Verifica feedback pallet-------
   if Ciclo==1 then
     if DI(1) == OFF then
         print('MANCANZA PALLET!')
@@ -8,7 +9,7 @@ while 1 do
         DOExecute(2, 0)
         DOExecute(1, 1)
 
-        Pause()
+        Pause()       ------se pallet NON presente pausa lavorazione-----
         DOExecute(5, 0)
         DOExecute(4, 1)
         DOExecute(1, 0)
@@ -17,6 +18,8 @@ while 1 do
 
         print('PALLET OK')
     end
+
+    -------Verifica feedback torcia-------
     if DI(2) == OFF then
         print('TORCIA SPENTA!')
         DOExecute(4, 0)
@@ -25,7 +28,7 @@ while 1 do
         DOExecute(2, 0)
         DOExecute(1, 1)
 
-        Pause()
+        Pause()   ------se torcia NON attiva pausa lavorazione
         DOExecute(5, 0)
         DOExecute(4, 1)
         DOExecute(1, 0)
