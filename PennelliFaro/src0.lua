@@ -1,19 +1,6 @@
--------Inizializzazione conteggio tempo totale ciclo-------
-CalcTimeWaste = 0
-function ResetTime()
- CalcTimeWaste = Systime()
-end
+-----Start conteggio tempo----
 
-function GetTime()
- if CalcTimeWaste == 0 then 
-  return -1
- else 
-  return Systime() - CalcTimeWaste
- end
-
-end
-
-ResetTime()
+local startTime = os.time()
 
 -----Settaggio output------
 DO(4,0)
@@ -100,6 +87,5 @@ DO(3,1)
   print('Ciclo completato')
 
   ------Tempo totale ciclo-------
-
-  Second= math.floor(GetTime()/ 60000)
-  print("Tempo totale ciclo: ".. Second .. " minuti")
+  local endTime = os.time()
+  print("Il ciclo dura in media: ", math.floor(os.difftime(endTime, startTime) / 60), " Minuti")
