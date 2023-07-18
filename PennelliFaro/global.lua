@@ -1,10 +1,12 @@
 Counter = 0
-Time = 0
-Min = 0
+time = 0
+min = 0
 DeltaX = 0
 DeltaY = 0
 DeltaZ = 0
-Ciclo = 0 
+Ciclo = 0
+okPiastra = 0
+Manuale = 0 
 --  Pallet
 
   --直线位置线性插值
