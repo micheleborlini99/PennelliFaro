@@ -45,3 +45,7 @@ end
 function DOExecute()
     print("DO subtrhead")
 end
+
+function MoveJ()
+    print("movimento joint")
+end
