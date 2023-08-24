@@ -108,12 +108,25 @@ VerificaManuale=0
         DO(6,1)
       end
       Sync()
+      ResetElapsedTime()
       while not (((DI(9) == ON) or (DI(10) == ON))) do
         Sleep(200)
+        Time = ElapsedTime() / 1000
+        if Time > 15 then
+          Sync()
+          print("ARIA INSUFFICIENTE, MANCATO MOVIMENTO DEL CILINDRO")
+          DO(3, 0)
+          DO(2, 0)
+          DO(1, 1)
+          Pause()
+          DO(1, 0)
+          DO(2, 0)
+          DO(3, 1)
+        end
       end
 
       Sync()
-      print('ATTESA AVVIO CICLO')
+      print('ATTESA AVVIO CICLO: PREMERE PULSANTE "CAMBIO PALLET"')
       Sync()
 
 -----Attesa pulsante di "OK PALLET"----
@@ -166,10 +179,11 @@ VerificaManuale=0
       while not (((DI(9) == OFF) and (DI(10) == OFF))) do
         Sleep(500)
       end
+      Sleep(1000)
 ResetElapsedTime()
       while not ((DI(1) == ON)) do
         Sleep(500)
-        
+
         Time = ElapsedTime() / 1000
         if Time > 8 then
           Sync()
@@ -214,13 +228,12 @@ ResetElapsedTime()
         print("ATTENDO TORCIA A TEMPERATURA...")
         Sync()
         while (Time <= 30) do
-            Sleep (600)
+            Sleep (610)
             Time = ElapsedTime() / 1000
             if ((math.floor(Time) % 15) == 0) then
               Sync()
               print("RISCALDAMENTO TORCIA..", math.floor(Time) , " SECONDI / 30 SECONDI")
             end
-
         end
       end
 
@@ -244,12 +257,13 @@ while PezziPlasmati < 54 do
 Move(RP(points_pallet1[Counter],{0,0,20}),"SpeedS=100")
 
 Move(RP(points_pallet1[Counter],{0,DeltaY,DeltaZ}),"CP=1 SpeedS=15")
+
 ---Movimento su pezzo---
 
 ResetElapsedTime()
-Move(RP(points_pallet1[Counter],{0,DeltaY,DeltaZ}),"CP=1 SpeedS=1.2")
-Arc3(RP(points_pallet1[Counter],{DeltaX,0,DeltaZ}),RP(points_pallet1[Counter],{0,-DeltaY,DeltaZ}),"CP=1 SpeedS=1.2")
-Arc3(RP(points_pallet1[Counter],{-DeltaX,0,DeltaZ}),RP(points_pallet1[Counter],{0,DeltaY,DeltaZ}),"CP=1 SpeedS=1.2")
+Move(RP(points_pallet1[Counter],{0,DeltaY,DeltaZ}),"CP=1 SpeedS=1.1")
+Arc3(RP(points_pallet1[Counter],{DeltaX,0,DeltaZ}),RP(points_pallet1[Counter],{0,(-DeltaY - 2.5),DeltaZ}),"CP=1 SpeedS=1.1")
+Arc3(RP(points_pallet1[Counter],{-DeltaX,0,DeltaZ}),RP(points_pallet1[Counter],{0,DeltaY,DeltaZ}),"CP=1 SpeedS=1.1")
 
 ----Fine movimento su pezzo----
        Move(RP(points_pallet1[Counter],{0,0,20}),"SpeedS=80")
@@ -270,6 +284,7 @@ Sync()
 end
 Sync()
 print('- CICLO COMPLETATO -')
+MoveJ((P20))
 Sleep(1000)
 local endTime = os.time()
 Sync()
@@ -281,18 +296,29 @@ print("DURATA CICLO: ", math.floor(os.difftime(endTime, startTime) / 60), " MINU
       Ciclo = 0
       DO(4,0)
       DO(5,1)
-      MoveJ((P20))
       Sync()
-      while not (DI(2) == OFF) do 
+      ResetElapsedTime()
+      while not (DI(2) == OFF) do
         Sleep(500)
+        Time = ElapsedTime() / 1000
+        if Time > 10 then
+          Sync()
+          print("ERRORE SPEGNIMENTO TORCIA")
+          DO(3, 0)
+          DO(2, 0)
+          DO(1, 1)
+          Pause()
+          DO(1, 0)
+          DO(2, 0)
+          DO(3, 1)
+        end
       end
       Sleep (1000)
       PalletCompletati = PalletCompletati + 1
-      print("PIASTRE COMPLETATE: ", PalletCompletati)
+      print('TORCIA SPENTA CORRETTAMENTE')
       Sleep (1000)
       Sync()
-      print('TORCIA SPENTA CORRETTAMENTE')
-
+      print("PIASTRE COMPLETATE: ", PalletCompletati)
 
 ---------Verifica se programma in MANUALE--------
 
@@ -337,7 +363,7 @@ VerificaManuale=0
       print('ATTESA INIZIO LAVORAZIONE....')
 
       while not (okPiastra==1) do
-          Sleep(599)
+          Sleep(610)
           Time = ElapsedTime() / 1000
           Sec=math.floor(Time)
           if ((math.floor(Sec) % 10) == 0) then

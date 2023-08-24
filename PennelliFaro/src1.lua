@@ -15,7 +15,7 @@ while not (Ciclo==2) do
 
   if Ciclo==1 then
     if DI(1) == OFF then
-        print('MANCANZA PALLET - ERRORE - PROGRAMMA IN STOP E MACCHINA FERMA')
+        print('MANCANZA PALLET - ERRORE - PROGRAMMA IN STOP')
         Stop = 1
         DOExecute(4, 0)
         DOExecute(5, 1)
@@ -47,7 +47,7 @@ while not (Ciclo==2) do
     end
 
     if (DI(9) == OFF) and (DI(10) == OFF) then
-        print('CILINDRO NON A FINE CORSA - ERRORE - PROGRAMMA IN STOP E MACCHINA FERMA')
+        print('CILINDRO NON A FINE CORSA - ERRORE - PROGRAMMA IN STOP')
         DOExecute(4, 0)
         DOExecute(5, 1)
         DOExecute(3, 0)
